@@ -215,6 +215,7 @@ Menu:
             print("")
 
         finishedRooms = finishedRooms + 1
+    input("Press Enter key to close...") 
 
 def court():
     os.system("clear")
@@ -385,6 +386,8 @@ their associates or the like.
         minorActors.append(minorActorsList[actor])
         numMinorActors = numMinorActors - 1
     print("Minor Actors: " + str(minorActors))
+
+    input("Press Enter key to close...") 
 
 
 main()
