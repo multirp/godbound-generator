@@ -1,6 +1,7 @@
 import os
 from lib import lists
 from random import randint
+from random import choice
 
 def main():
     os.system("clear")
@@ -23,16 +24,16 @@ What do you want to do?
     4: Quit
 """
     print(menu)
-    choice = input("1-4: ")
+    menuChoice = input("1-4: ")
 
 
-    if choice == '1':
+    if menuChoice == '1':
         ruin()
-    elif choice == '2':
+    elif menuChoice == '2':
         court()
-    elif choice == '3':
+    elif menuChoice == '3':
         genhelp()
-    elif choice == '4':
+    elif menuChoice == '4':
         exit()
     else:
         input("Please choose 1-4 from the menu above!")
@@ -106,30 +107,24 @@ Menu:
     5: I don't want a ruin, take me back to the menu!
     """
     print(createRuin)
-    choice = input("1-5: ")
-    if choice == '1':
+    menuChoice = input("1-5: ")
+    if menuChoice == '1':
         rooms = 6
-    elif choice == '2':
+    elif menuChoice == '2':
         rooms = 10
-    elif choice == '3':
+    elif menuChoice == '3':
         rooms = 14
-    elif choice == '4':
+    elif menuChoice == '4':
         rooms = 20
-    elif choice == '5':
+    elif menuChoice == '5':
         main()
     else:
         input("Please choose 1-5 from the menu above!  Press Enter to continue")
         ruin()
 
-# These are the die rolls to get the various ruin properties
-    purposeRoll = randint(0,19)     # Ruin Purpose
-    hazardRoll = randint(0,19)      # Ruin Hazards
-    rewardRoll = randint(0,11)      # Ruin Reward
-
-
-    print("The ruin's purpose is: " + lists.purposeList[purposeRoll])
-    print("The ruin's main hazard is: " + lists.hazardList[hazardRoll])
-    print("The ruin's main reward is: " + lists.rewardList[rewardRoll])
+    print("The ruin's purpose is: " + choice(lists.purposeList))
+    print("The ruin's main hazard is: " + choice(lists.hazardList))
+    print("The ruin's main reward is: " + choice(lists.rewardList))
     print("")
     finishedRooms = 0
 
@@ -137,8 +132,7 @@ Menu:
     # the 'finished Rooms' variable.  Once they match, the while loop breaks
     # off.
     while finishedRooms < rooms: 
-        roomPurposeRoll = randint(0,11)
-        purpose = lists.roomPurposeList[roomPurposeRoll]
+        purpose = choice(lists.roomPurposeList)
         emptyChance = randint(1,100)
 
         # There is a 25% chance that a given room is empty.
@@ -161,33 +155,27 @@ Menu:
             # and will be pulled out of a list.  Otherwise, it returns a
             # 'nothing special' string to input at the very end
             if valuablesChance <= 60:
-                roomValuablesRoll = randint(0,11)
-                valuables = lists.roomValuablesList[roomValuablesRoll]
+                valuables = choice(lists.roomValuablesList)
             else:
                 valuables = "No Special Treasure"
             if moodChance <= 50:
-                roomMoodRoll = randint(0,11)
-                mood = lists.roomMoodList[roomMoodRoll]
+                mood = choice(lists.roomMoodList)
             else:
                 mood = "No Special Mood"
             if movementChance <= 40:
-                roomMovementProblemsRoll = randint(0,11)
-                movement = lists.roomMovementProblemsList[roomMovementProblemsRoll]
+                movement = choice(lists.roomMovementProblemsList)
             else:
                 movement = "No Special Problems"
             if physicalPerilChance <= 35:
-                roomPhysicalPerilRoll = randint(0,11)
-                physicalPeril = lists.roomPhysicalPerilList[roomPhysicalPerilRoll]
+                physicalPeril = choice(lists.roomPhysicalPerilList)
             else:
                 physicalPeril = "No Special Physical Perils"
             if occupantPerilChance <= 30:
-                roomOccupantPerilRoll = randint(0,11)
-                occupantPeril = lists.roomOccupantPerilList[roomOccupantPerilRoll]
+                occupantPeril = choice(lists.roomOccupantPerilList)
             else:
                 occupantPeril = "No Special Occupant Perils"
             if magicalPerilChance <= 20:
-                roomMagicalPerilRoll = randint(0,11)
-                magicalPeril = lists.roomMagicalPerilList[roomMagicalPerilRoll]
+                magicalPeril = choice(lists.roomMagicalPerilList)
             else:
                 magicalPeril = "No Special Magical Peril"
 
@@ -264,7 +252,7 @@ Temple: The clergy.  Not much else to say, but they tend to be the priests and
 their associates or the like.
     """
     print(createCourt)
-    choice = input("1-8: ")
+    menuChoice = input("1-8: ")
 
     # This list does a couple of things.  It controls the main menu for the type
     # of court you want to make, but it also establishes some 'baseline'
@@ -272,7 +260,7 @@ their associates or the like.
     # in the lists.py file that correspond to the type of court it is.  I'm
     # doing this to only have to type up the random generation once, rather than
     # once per court type
-    if choice == '1':
+    if menuChoice == '1':
         courtType = "Aristocratic"
         courtMoodName = "Court Mood"
         courtMoodList = lists.aristocraticCourtMood
@@ -282,7 +270,7 @@ their associates or the like.
         conflictsList = lists.aristocraticConflicts
         consequencesList = lists.aristocraticConsequences
         defensesList = lists.aristocraticDefenses
-    elif choice == '2':
+    elif menuChoice == '2':
         courtType = "Bureaucratic"
         courtMoodName = "How the Buraeucracy is Regarded"
         courtMoodList = lists.bureaucraticCourtMood
@@ -292,7 +280,7 @@ their associates or the like.
         conflictsList = lists.bureaucraticConflicts
         consequencesList = lists.bureaucraticConsequences
         defensesList = lists.bureaucraticDefenses
-    elif choice == '3':
+    elif menuChoice == '3':
         courtType = "Business"
         courtMoodName = "How the business is currently doing"
         courtMoodList = lists.businessCourtMood
@@ -302,7 +290,7 @@ their associates or the like.
         conflictsList = lists.businessConflicts
         consequencesList = lists.businessConsequences
         defensesList = lists.businessDefenses
-    elif choice == '4':
+    elif menuChoice == '4':
         courtType = "Community"
         courtMoodName = "Community Temperment"
         courtMoodList = lists.communityCourtMood
@@ -312,7 +300,7 @@ their associates or the like.
         conflictsList = lists.communityConflicts
         consequencesList = lists.communityConsequences
         defensesList = lists.communityDefenses
-    elif choice == '5':
+    elif menuChoice == '5':
         courtType = "Criminal"
         courtMoodName = "Main line of crime"
         courtMoodList = lists.criminalCourtMood
@@ -322,7 +310,7 @@ their associates or the like.
         conflictsList = lists.criminalConflicts
         consequencesList = lists.criminalConsequences
         defensesList = lists.criminalDefenses
-    elif choice == '6':
+    elif menuChoice == '6':
         courtType = "Temple"
         courtMoodName = "Temple mood"
         courtMoodList = lists.templeCourtMood
@@ -332,12 +320,12 @@ their associates or the like.
         conflictsList = lists.templeConflicts
         consequencesList = lists.templeConsequences
         defensesList = lists.templeDefenses
-    elif choice == '7':
+    elif menuChoice == '7':
         os.system("clear")
         print(courtTypes)
         input("Press Enter to return to the courts menu")
         court()
-    elif choice == '8':
+    elif menuChoice == '8':
         main()
     else:
         input("Please choose 1-8 from the menu above!  Please press Enter")
@@ -361,12 +349,12 @@ their associates or the like.
     # basic court information (like court type), but didn't want them in the
     # middle of what was otherwise a plain print statement.  I kind of like the
     # layout myself
-    print("Court Type: " + courtType + " (" + lists.courtPowerStructure[
-                                                powerStructureType] + ")")
-    print("   " + courtMoodName + ": " + courtMoodList[courtMood])
-    print("   Court Conflict: " + conflictsList[courtConflict])
-    print("   Court Defenses: " + defensesList[courtDefenses])
-    print("   Consequences of Destruction: " + consequencesList[courtConsequences])
+    print("Court Type: " + courtType + " (" + choice(lists.courtPowerStructure)
+                                                    + ")")
+    print("   " + courtMoodName + ": " + choice(courtMoodList))
+    print("   Court Conflict: " + choice(conflictsList))
+    print("   Court Defenses: " + choice(defensesList))
+    print("   Consequences of Destruction: " + choice(consequencesList))
     print("")
 
     # We're going to roll for our major and minor actors (and power sources)
@@ -375,17 +363,16 @@ their associates or the like.
     # actors are appended to the minorActors list, and printed all at once, with
     # little fanfare
     while numMajorActors > 0:
-        actor = randint(0,11)
-        actorPowerSource = randint(0,11)
-        print("Major Actor: " + majorActorsList[actor] + " (Power Source: "
-            + powerSourcesList[actorPowerSource] + ")")
+        print("Major Actor: " + choice(majorActorsList) + " (Power Source: "
+            + choice(powerSourcesList) + ")")
         numMajorActors = numMajorActors - 1
     print("")
     while numMinorActors > 0:
-        actor = randint(0,11)
-        minorActors.append(minorActorsList[actor])
+        minorActors.append(choice(minorActorsList))
         numMinorActors = numMinorActors - 1
-    print("Minor Actors: " + str(minorActors))
+    # This takes the list of minor actors, and formats them more appropriately
+    # with commas, and no square brackets, and prints them out
+    print('Minor Actors: ' + ', '.join(minorActors))
 
     input("Press Enter key to close...") 
 
