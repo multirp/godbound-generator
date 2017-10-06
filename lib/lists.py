@@ -510,7 +510,7 @@ businessDefenses = [
     'Special police protection'
     ]
 
-# What follows pertains to the Community courts 
+# What follows pertains to the Community courts
 communityCourtMood = [
     'Amoral, indifferent to harm to outsiders or strangers',
     'Corrupt, dealing with bandits and the sinister',

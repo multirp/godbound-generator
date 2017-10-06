@@ -1,3 +1,9 @@
+# Try to find a way to remove 'No special X' remarks in the ruin generator to
+# trim down the output a bit, and ensure only the important stuff is written
+
+# Also, add in file I/O so you can append to a text file, yo
+
+
 import os
 from lib import lists
 from random import randint
@@ -131,13 +137,14 @@ Menu:
     # This while loop takes the 'rooms' variable from above and compares it to
     # the 'finished Rooms' variable.  Once they match, the while loop breaks
     # off.
-    while finishedRooms < rooms: 
+    while finishedRooms < rooms:
         purpose = choice(lists.roomPurposeList)
         emptyChance = randint(1,100)
-
+        emptyRoom = 0
         # There is a 25% chance that a given room is empty.
         if emptyChance < 25:
-            roomEmpty = "This room is otherwise not special"
+            emptyRoom = 1
+            # roomEmpty = "This room is otherwise not special"
         else:
             # These are the various dice rolls that determine the spread of the
             # rooms within the ruin.  They're brought to the very top to help
@@ -157,27 +164,27 @@ Menu:
             if valuablesChance <= 60:
                 valuables = choice(lists.roomValuablesList)
             else:
-                valuables = "No Special Treasure"
+                valuables = 0
             if moodChance <= 50:
                 mood = choice(lists.roomMoodList)
             else:
-                mood = "No Special Mood"
+                mood = 0
             if movementChance <= 40:
                 movement = choice(lists.roomMovementProblemsList)
             else:
-                movement = "No Special Problems"
+                movement = 0
             if physicalPerilChance <= 35:
                 physicalPeril = choice(lists.roomPhysicalPerilList)
             else:
-                physicalPeril = "No Special Physical Perils"
+                physicalPeril = 0
             if occupantPerilChance <= 30:
                 occupantPeril = choice(lists.roomOccupantPerilList)
             else:
-                occupantPeril = "No Special Occupant Perils"
+                occupantPeril = 0
             if magicalPerilChance <= 20:
                 magicalPeril = choice(lists.roomMagicalPerilList)
             else:
-                magicalPeril = "No Special Magical Peril"
+                magicalPeril = 0
 
         # This formats the actual room description, starting off with a generic
         # "RoomX" name, where X is equal to the number of the generated room.
@@ -189,21 +196,38 @@ Menu:
         # same), and I ran into a bug where it would fail to print out rooms
         # when I was trying to use the non-null 'empty' string for comparison
         # instead
+
+        # I also compare variables to a bunch of room based stuff that I was using
+        # before.  This removes the 'empty' strings (I found them annoying and
+        # adding noise to the output, it should be much more streamlined now)
+
         print("Room"+ str(finishedRooms+1) + " details (" + purpose + ")")
-        if emptyChance < 25:
+        if emptyRoom == 1:
             print("   There is nothing special about this room")
             print("")
         else:
-            print("   Mood: " + mood)
-            print("   Treasure: " + valuables)
-            print("   Ingress/Egress Problems: " + movement)
-            print("   Physical Peril: " + physicalPeril)
-            print("   Occupant Peril: " + occupantPeril)
-            print("   Magical Peril: " + magicalPeril)
+            if mood != 0:
+                print("   Mood: " + mood)
+            if valuables != 0:
+                print("   Treasure: " + valuables)
+            if movement != 0:
+                print("   Ingress/Egress Problems: " + movement)
+            if physicalPeril != 0:
+                print("   Physical Peril: " + physicalPeril)
+            if occupantPeril != 0:
+                print("   Occupant Peril: " + occupantPeril)
+            if magicalPeril != 0:
+                print("   Magical Peril: " + magicalPeril)
             print("")
 
         finishedRooms = finishedRooms + 1
-    input("Press Enter key to close...") 
+    menuChoice = input("(1) Generate another Ruin | (2) Main Menu | Anything else to Quit the Program: ")
+    if menuChoice == '1':
+        ruin()
+    elif menuChoice == '2':
+        main()
+    else:
+        exit()
 
 def court():
     os.system("clear")
@@ -331,15 +355,8 @@ their associates or the like.
         input("Please choose 1-8 from the menu above!  Please press Enter")
         court()
 
-    # Like before, these random integers function as the die roller, in this
-    # case for most of the necessary court things, as well as the number of
-    # actors of note within the court (3-5 major and 4-8 minor, change to fit)
-    powerStructureType = randint(0,5)
-    courtMood = randint(0,11)
-    courtConflict = randint(0,11)
-    courtConsequences = randint(0,11)
-    courtDefenses = randint(0,11)
-
+    # This sets the number of actors to create for the court, both major and
+    # minor actors.  Feel free to adjust these numbers as necessary
     numMajorActors = randint(3,5)
     numMinorActors = randint(4,8)
     minorActors = [] # Empty list to store the minor actors in
@@ -374,7 +391,12 @@ their associates or the like.
     # with commas, and no square brackets, and prints them out
     print('Minor Actors: ' + ', '.join(minorActors))
 
-    input("Press Enter key to close...") 
-
+    menuChoice = input("(1) Generate another Court | (2) Main Menu | (3) Quit the Program: ")
+    if menuChoice == '1':
+        court()
+    elif menuChoice == '2':
+        main()
+    else:
+        exit()
 
 main()
