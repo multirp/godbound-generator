@@ -45,7 +45,7 @@ In the unlikely event you want to contribute to the program, let me know, and we
 
 ## Authors
 
-* **Anthony "MultiRP" Frank**
+* **Me, MultiRP**
 
 ## License
 
